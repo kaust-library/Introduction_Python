@@ -19,6 +19,12 @@ Using `venv.`
 
 ## Python Basic Elements
 
+Present the _Zen of Python_
+
+```
+import this
+```
+
 * Numbers
 * String
 * Lists
