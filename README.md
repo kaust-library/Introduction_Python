@@ -17,13 +17,15 @@ Using `venv.`
 
 ### VS Code
 
-## Python Basic Elements
+## The Zen 
 
 Present the _Zen of Python_
 
 ```
 import this
 ```
+
+## Python Basic Elements
 
 * Numbers
 * String
