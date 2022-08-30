@@ -5,7 +5,7 @@ Introduction to Python Programming
 
 Install from Microsoft Store
 
-Installing VScode
+Installing VScode and extra packages
 
 Installing JupyterLab
 
