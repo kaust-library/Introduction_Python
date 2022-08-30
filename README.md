@@ -5,9 +5,9 @@ Introduction to Python Programming
 
 Install from Microsoft Store
 
-## Environment
+Installing VScode
 
-Configuring the environment
+Installing JupyterLab
 
 ## Virtual Environment
 
@@ -15,9 +15,13 @@ Using `venv.`
 
 ### JupyterLab
 
+Starting Jupyterlab
+
 ### VS Code
 
-## The Zen 
+Selecting the interpreter
+
+## The Zen of Python
 
 Present the _Zen of Python_
 
@@ -33,6 +37,15 @@ import this
 * Dictionaries
 
 ## Control Flow
+
+* range
+* if ... elif ... else
+* for
+* while
+
+## Functions
+
+Declaring functions with `def` and using _docstring_.
 
 ## Input and Output
 
@@ -51,3 +64,11 @@ Importing modules
 Basic interactions with the OS.
 
 Paths in Windows.
+
+## What's Next
+
+* Data Science
+
+* Web Development
+
+* AI
