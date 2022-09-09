@@ -1,25 +1,14 @@
 # Introduction to Python
+
 Introduction to Python Programming
 
 ## Installing Python
 
 Install from Microsoft Store
 
-Installing VScode and extra packages
-
-Installing JupyterLab
-
 ## Virtual Environment
 
 Using `venv.`
-
-### JupyterLab
-
-Starting Jupyterlab
-
-### VS Code
-
-Selecting the interpreter
 
 ## The Zen of Python
 
@@ -65,6 +54,20 @@ Basic interactions with the OS.
 
 Paths in Windows.
 
+## Development Environments
+
+### JupyterLab
+
+Installing JupyterLab
+
+Starting Jupyterlab
+
+### VS Code
+
+Installing VScode and extra packages
+
+Selecting the interpreter
+
 ## What's Next
 
 * Data Science
@@ -72,3 +75,4 @@ Paths in Windows.
 * Web Development
 
 * AI
+
