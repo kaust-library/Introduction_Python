@@ -47,7 +47,17 @@ Namespaces are one honking great idea -- let's do more of those!
 
 ## Python Basic Elements
 
-### Numbers: Python as Calculator
+Python has all the basic types that you would expect: numeric types, like [int, float, and complex](https://docs.python.org/3/library/stdtypes.html#numeric-types-int-float-complex). The text type is [`str`](https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str). There is very powerful and useful mapping type, [`dict`](https://docs.python.org/3/library/stdtypes.html#mapping-types-dict). Plus sequence types like [lists, tuples, ranges](https://docs.python.org/3/library/stdtypes.html#sequence-types-list-tuple-range). And much more. 
+
+Bolleans are implemented as a subtype of integers. Integers have [unlimited precision](https://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic). Floating point numbers are implemented using _double_ in C. For those curious, information about precision and internal representation on your system, you check with `sys.float_info`:
+
+```Python
+>>> import sys
+>>> sys.float_info
+sys.float_info(max=1.7976931348623157e+308, max_exp=1024, max_10_exp=308, min=2.2250738585072014e-308, min_exp=-1021, min_10_exp=-307, dig=15, mant_dig=53, epsilon=2.220446049250313e-16, radix=2, rounds=1)
+>>>
+```
+### Numbers in Python
 
 The interpreter acts as a simple calculator: you can type an expression at it and it will write the value. Simple examples of simple operations
 
@@ -93,7 +103,31 @@ The last printed value is assigned to variable `_`, which can be convinient when
 > ```
 > But this is just a convention.
 
+The real and imaginary part of a complex number are of type _float_
 
+```Python
+>>> real = 5
+>>> imag = 3
+>>> z = complex(real, imag)
+>>> z.real
+5.0
+>>> z.imag
+3.0
+>>>
+```
+
+Adding a `'j'` or `'J'` to a number, converts it to complex type
+
+```Python
+>>> c = 3j
+>>> c
+3j
+>>> c.real
+0.0
+>>> c.imag
+3.0
+>>>
+```
 ### String
 
 ### Lists
