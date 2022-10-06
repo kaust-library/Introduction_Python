@@ -78,6 +78,15 @@ The interpreter acts as a simple calculator: you can type an expression at it an
 2
 >>> 17 // 3 # floor of the division (integer part)
 5
+>>> divmod(17,3) # Or how to get floor and remainder with a single function.
+(5, 2)
+>>>
+>>> x = 3.5
+>>> int(x) # Convert a number from float to int
+3
+>>> y = 5
+>>> float(y) # Convert a int to float
+5.0
 >>>
 ```
 
@@ -113,6 +122,10 @@ The real and imaginary part of a complex number are of type _float_
 5.0
 >>> z.imag
 3.0
+>>> z
+(5+3j)
+>>> z.conjugate()
+(5-3j)
 >>>
 ```
 
@@ -128,7 +141,43 @@ Adding a `'j'` or `'J'` to a number, converts it to complex type
 3.0
 >>>
 ```
-### String
+### Strings
+
+Textual data in Python is handled with `str` objects, or _strings_. Strings are immutable sequences of Unicode code points. String literals are written in a variety of ways:
+
+* Single quotes: `'allows embedded "double" quotes'`
+* Double quotes: `"allows embedded 'single' quotes"`
+* Triple quoted: `'''Three single quotes''', """Three double quotes"""`
+
+The double quotes offers the advantage when writing a message that already include a single quote:
+
+```Python
+>>> "he doesn't like garlic"
+"he doesn't like garlic"
+>>>
+```
+
+Triple quotes allow space in the string
+
+```Python
+>>> """he
+... doesn't
+... like
+... garlic"""
+"he \ndoesn't \nlike\ngarlic"
+>>>
+```
+
+Note that the line breaks are encoded as `\n`.
+
+> The backslash character can create problems when dealing with Windows path, like a user named Nancy
+> ```
+> C:\Users\nancy\Downloads
+> ```
+> In this case, declare the string as _raw_ to prevent the `\n` of her name to be interpreted as line break:
+>```
+> r'C:\Users\nancy\Downloads'
+>```
 
 ### Lists
 
