@@ -179,6 +179,25 @@ Note that the line breaks are encoded as `\n`.
 > r'C:\Users\nancy\Downloads'
 >```
 
+#### String Slicing
+
+An important concept is the string slicing, that is, taking only a certain part of string. For example
+
+```Python
+>>> word = "Python"
+>>> # The first character of a string
+>>> word[0]
+'P'
+>>> # Taking part of a string
+>>> word[2:5]
+'tho'
+>>> 
+```
+#### Some String Methods
+
+Here we present some methods for basic string manipulation
+
+
 ### Lists
 
 ### Dictionaries
