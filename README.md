@@ -82,6 +82,12 @@ not more than 10
 ...
 0,1,2,3,4,>>>
 >>>
+>>> numbers = range(1, 16) # Create a list from 1 to 15
+>>> list(numbers)    
+[1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
+>>> 
+>>> [ nn*nn for nn in numbers] # List comprehension
+[1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225]
 ```
 One important feature of the language is that Python is typeless, that is, the variables don't have a _type_:  _int_, or _float_:
 
@@ -94,15 +100,15 @@ One important feature of the language is that Python is typeless, that is, the v
 The variable `x` can be an _int_ or a _text_. 
 
 
-### Virtual Environment
+### Python on Ubuntu Systems
 
-> On Ubuntu system it's necessary to install `python3-venv` package.
+On Ubuntu system it's necessary to install `python3-venv` package. And if you are not going to install old Python2, than, it's a good idea to install the package `python-is-python3,` just so that the `python` command invokes `python3` instead of an error message.
 
 Using `venv.`
 
 ## Config Parser
 
-A very convinient way to create a configuration file for your application is with the `ConfigParser` module. It can create a file that is similar to  _ini_ Windows file. The configuration file looks like
+A very convinient way to create a configuration file for your application is with the `ConfigParser` module. It can create a file that is similar to  Windows _ini_ file. The configuration file looks like
 
 ```
 [ACCESSION]
@@ -127,6 +133,36 @@ run_it = no
 
 You can create sections, use comments to make easier to users to understand your configuration, use different types of data, like numbers or logical values, and, even, interpolate values from one section to another.
 
+To read the configuration file, you use the `ConfigParser` module
+
+```Python
+import configparser
+(...)
+   # Creating a configparser object
+    config = configparser.ConfigParser(
+        interpolation=configparser.ExtendedInterpolation()
+    )
+    config.read(config_file)
+(...)
+
+    # Reading values
+    acc_number = config['ACCESSION']['accession_id']
+
+    # Using a convenience function to read a boolean value
+    if config['CLAMAV'].getboolean('run_it'):
+        (...)
+```
+
+The extended interpolation presents a more natural interpolation, more natural in the sense that is similar to environment variables in Linux. The biggest advantage of the extended interpolation is to enable to fetch values from other sections. In the configuration file defined above, we used the `accession_id` defined in the `ACCESSION` section, to define a directory in the `BAGGER` section
+
+```Python
+[ACCESSION]
+accession_id = 000_000_0000
+
+[BAGGER]
+(...)
+dest_dir = C:\Users\joe\Work\${ACCESSION:accession_id}
+```
 
 ## Dot Env
 
