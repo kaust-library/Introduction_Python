@@ -102,7 +102,31 @@ Using `venv.`
 
 ## Config Parser
 
-A very convinient way to create a configuration file for your application is with the `ConfigParser` module. It can create a file that is similar to  _ini_ Windows file. 
+A very convinient way to create a configuration file for your application is with the `ConfigParser` module. It can create a file that is similar to  _ini_ Windows file. The configuration file looks like
+
+```
+[ACCESSION]
+accession_id = 000_000_0000
+
+[BAGGER]
+# You can specify a comma separated list of directories as source: dir1, dir2, ...
+source_dir = C:\Users\joe\Work\boat_trip_pictures, C:\Users\joe\Work\my_event_1
+# Using Python ExtendedInterpolation to use the 'accession_id' as target directory
+dest_dir = C:\Users\joe\Work\${ACCESSION:accession_id}
+
+[CLAMAV]
+av_dir = C:\Program Files\ClamAV
+av_update = freshclam.exe
+av_clamav = clamscan.exe
+av_logs_root = C:\Users\Desktop\john\clamscanlogs\clamAVlog
+quarantine_days = 30
+# Doesn't actually run the AV command, just print it.
+run_it = no
+(...)
+```
+
+You can create sections, use comments to make easier to users to understand your configuration, use different types of data, like numbers or logical values, and, even, interpolate values from one section to another.
+
 
 ## Dot Env
 
