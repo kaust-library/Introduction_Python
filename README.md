@@ -100,16 +100,19 @@ The variable `x` can be an _int_ or a _text_.
 
 Using `venv.`
 
-## Type Hinting
+## Config Parser
+
+A very convinient way to create a configuration file for your application is with the `ConfigParser` module. It can create a file that is similar to  _ini_ Windows file. 
+
+## Dot Env
 
 ## Executing Commands
 
 ## Logging
 
-## Config Parser
-
 ## Clock
 
 ## Jinja2
 
-## Dot Env
+## Type Hinting
+
