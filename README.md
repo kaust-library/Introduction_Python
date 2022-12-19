@@ -166,6 +166,43 @@ dest_dir = C:\Users\joe\Work\${ACCESSION:accession_id}
 
 ## Dot Env
 
+It's very common to pass passwords for applications like a database via environment variables. For example when using a CI/CD pipeline in Gitlab or GitHub, one set a series of environment variables to the pipeline. But during development, it's necessary to have a similar way to pass passwords (or any other key-value pair) to the application, and that is the reason to use _dotenv_. Dotenv reads a `.env` file, and export the content to shell environment.
+
+Let's create a sample `.env` file, read it, and use the key-value pair on our application. Create a `.env` file on the root of your project
+
+```
+me@myserver:~/Work/repo2preservica$ cat .env 
+## Preservica Username
+PRESERVICA_USERNAME="joe.doe@example.com"
+
+## Preservica Password
+PRESERVICA_PASSWORD="abc123def456"
+
+me@myserver:~/Work/repo2preservica$ 
+```
+
+If the `.env` file contains only the variables necessary, then it's enough just to call the method
+
+```Python
+from dotenv import load_dotenv
+(...)
+    # load environment variables for 'python-dotenv
+    load_dotenv()
+```
+
+But if the you want to read just one of the variables, then you can use the method `environ` from the the `os` module
+
+```Python
+import os
+(...)
+    load_dotenv()
+
+    api_passwd = os.environ['ARCHIVERA_API_PW']
+```
+
+The method will raise a `KeyError` exception if for any reaseon the variable is not set.
+
+
 ## Executing Commands
 
 ## Logging
