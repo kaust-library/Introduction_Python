@@ -205,6 +205,27 @@ The method will raise a `KeyError` exception if for any reaseon the variable is 
 
 ## Executing Commands
 
+To execute a program from your script, maybe it's easier if you assemble the command to be execute, with all its parameters first, then execute the command, and, finally, check the output
+
+```Python
+import subprocess
+(...)
+    # 1. Prepare the parameters for the command
+    droid_exec_path = os.path.join(droid_config['droid_dir'], droid_config['droid_bin'])
+    droid_bag_path = os.path.join(bag_path, "data")
+
+    # 2. Assemble the command line to be executed
+    droid_cmd = f"{droid_exec_path} -a {droid_bag_path} --recurse -p {acc_number}.droid"
+    (...)
+
+        # 3. Execute the program.
+        result = subprocess.run(droid_cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+        result.check_returncode()
+    (...)
+```
+ 
+
+
 ## Logging
 
 ## Clock
