@@ -224,6 +224,16 @@ import subprocess
     (...)
 ```
  
+We create `droid_exec_path` by joining the directory with the executable name, here we are using the function `join` that handles the path separator that is OS dependent, that is, Windows (`\`) and Linux (`/`) have different path separators
+
+```Python
+>>> import os
+>>> droid_dir = "/opt/LibraryApps/droid-binary-6.5-bin-with-jre"
+>>> droid_bin = "droid.sh"
+>>> droid_exec_path = os.path.join(droid_dir, droid_bin)
+>>> print(f"droid_exec_path = '{droid_exec_path}'")
+droid_exec_path = '/opt/LibraryApps/droid-binary-6.5-bin-with-jre/droid.sh'
+```
 
 
 
