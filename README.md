@@ -274,7 +274,6 @@ To talk about the return of the `subprocess.run`, the `result` above, let's see 
 >>> ppp
 'C:\\Users\\garcm0b\\Work\\hello_python.py'
 >>>
->>> 
 >>> my_cmd = "python.exe " + ppp
 >>> subprocess.run(my_cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
 CompletedProcess(args='python.exe C:\\Users\\garcm0b\\Work\\hello_python.py', returncode=0, stdout='hello from a python script\n')
@@ -283,7 +282,11 @@ CompletedProcess(args='python.exe C:\\Users\\garcm0b\\Work\\hello_python.py', re
 >>> result = subprocess.run(my_cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
 >>> print(result.returncode)
 0
->>> 
+>>>
+>>> print(result.stdout)
+hello from a python script
+
+>>>
 ```
 The important part is the `returncode` above: if it's "0," then the command was successful. Any other number means an error occurred. [Windows](https://learn.microsoft.com/en-us/windows/win32/debug/system-error-codes--0-499-) and [Linux](http://www.virtsync.com/c-error-codes-include-errno) have different meaning for the error number.
 
