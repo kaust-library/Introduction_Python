@@ -227,15 +227,65 @@ import subprocess
 We create `droid_exec_path` by joining the directory with the executable name, here we are using the function `join` that handles the path separator that is OS dependent, that is, Windows (`\`) and Linux (`/`) have different path separators
 
 ```Python
+#
+# Linux
 >>> import os
 >>> droid_dir = "/opt/LibraryApps/droid-binary-6.5-bin-with-jre"
 >>> droid_bin = "droid.sh"
 >>> droid_exec_path = os.path.join(droid_dir, droid_bin)
 >>> print(f"droid_exec_path = '{droid_exec_path}'")
 droid_exec_path = '/opt/LibraryApps/droid-binary-6.5-bin-with-jre/droid.sh'
+#
+# Windows
+>>> import os
+>>> droid_dir = "C:\LibraryApps\droid-binary-6.5-bin-win32-with-jre"
+>>> droid_bin = "droid.bat"
+>>> droid_exec_path = os.path.join(droid_dir, droid_bin)
+>>> print(f"droid_exec_path = '{droid_exec_path}'")
+droid_exec_path = 'C:\LibraryApps\droid-binary-6.5-bin-win32-with-jre\droid.bat'
+>>>
 ```
 
+Before executing the command we assemble the full command line, include the parameters, (`-a`, `--recurse`, etc.). Next we [execute the command](https://docs.python.org/3.10/library/subprocess.html#using-the-subprocess-module)
 
+```Python
+result = subprocess.run(droid_cmd, stdout=subprocess.PIPE, 
+         stderr=subprocess.STDOUT, text=True)
+```
+
+Where:
+
+* `stdout=subprocess.PIPE`: we are capturing the output of the command,
+* `stderr=subprocess.STDOUT`: we are redirecting error messages to the standard output device,
+* `text=True`: makes `stdout` available as a string, instead of a [byte sequence](https://docs.python.org/3.10/library/stdtypes.html#binary-sequence-types-bytes-bytearray-memoryview).
+
+To talk about the return of the `subprocess.run`, the `result` above, let's see a simple example
+
+```Python
+# A very simple script:
+# PS C:\Users\garcm0b\Work> cat .\hello_python.py
+# print('hello from a python script')
+
+# First we build the command line, and here, how to set the full path to the 
+# script: home_dir (~) + Work + hello_python.py
+>>> import os
+>>> import subprocess
+>>> ppp = os.path.join(os.path.expanduser('~'), 'Work', 'hello_python.py')
+>>> ppp
+'C:\\Users\\garcm0b\\Work\\hello_python.py'
+>>>
+>>> 
+>>> my_cmd = "python.exe " + ppp
+>>> subprocess.run(my_cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+CompletedProcess(args='python.exe C:\\Users\\garcm0b\\Work\\hello_python.py', returncode=0, stdout='hello from a python script\n')
+>>> 
+# Running the command again, and capturing the result.
+>>> result = subprocess.run(my_cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+>>> print(result.returncode)
+0
+>>> 
+```
+The important part is the `returncode` above: if it's "0," then the command was successful. Any other number means an error occurred. [Windows](https://learn.microsoft.com/en-us/windows/win32/debug/system-error-codes--0-499-) and [Linux](http://www.virtsync.com/c-error-codes-include-errno) have different meaning for the error number.
 
 ## Logging
 
