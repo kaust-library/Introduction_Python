@@ -1,6 +1,6 @@
 # Introduction to Python
 
-Python was created by [Guido Van Rossum](https://gvanrossum.github.io/) in late 1980s for the experimental [Amoeba operating system](https://en.wikipedia.org/wiki/Amoeba_(operating_system)). The version 1.0 of Python was released in 1994. Version 2.0 was release in October 2000, and version 3 was released in December 2008 to fix many design problems with the language. One of the major issues was that version 3 was mostly incompatible with version 2, and, therefore, it broke many scripts in Python 2. The name comes from the BBC TV show [Monty Python's Flying Circus](https://en.wikipedia.org/wiki/Monty_Python%27s_Flying_Circus).
+Python was created by [Guido Van Rossum](https://gvanrossum.github.io/) in late 1980s for the experimental [Amoeba operating system](<https://en.wikipedia.org/wiki/Amoeba_(operating_system)>). The version 1.0 of Python was released in 1994. Version 2.0 was release in October 2000, and version 3 was released in December 2008 to fix many design problems with the language. One of the major issues was that version 3 was mostly incompatible with version 2, and, therefore, it broke many scripts in Python 2. The name comes from the BBC TV show [Monty Python's Flying Circus](https://en.wikipedia.org/wiki/Monty_Python%27s_Flying_Circus).
 
 ## Installing Python
 
@@ -42,12 +42,12 @@ Although never is often better than *right* now.
 If the implementation is hard to explain, it's a bad idea.
 If the implementation is easy to explain, it may be a good idea.
 Namespaces are one honking great idea -- let's do more of those!
->>> 
+>>>
 ```
 
 ## Python Basic Elements
 
-Python has all the basic types that you would expect: numeric types, like [int, float, and complex](https://docs.python.org/3/library/stdtypes.html#numeric-types-int-float-complex). The text type is [`str`](https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str). There is very powerful and useful mapping type, [`dict`](https://docs.python.org/3/library/stdtypes.html#mapping-types-dict). Plus sequence types like [lists, tuples, ranges](https://docs.python.org/3/library/stdtypes.html#sequence-types-list-tuple-range). And much more. 
+Python has all the basic types that you would expect: numeric types, like [int, float, and complex](https://docs.python.org/3/library/stdtypes.html#numeric-types-int-float-complex). The text type is [`str`](https://docs.python.org/3/library/stdtypes.html#text-sequence-type-str). There is very powerful and useful mapping type, [`dict`](https://docs.python.org/3/library/stdtypes.html#mapping-types-dict). Plus sequence types like [lists, tuples, ranges](https://docs.python.org/3/library/stdtypes.html#sequence-types-list-tuple-range). And much more.
 
 Bolleans are implemented as a subtype of integers. Integers have [unlimited precision](https://en.wikipedia.org/wiki/Arbitrary-precision_arithmetic). Floating point numbers are implemented using _double_ in C. For those curious, information about precision and internal representation on your system, you check with `sys.float_info`:
 
@@ -83,13 +83,14 @@ not more than 10
 0,1,2,3,4,>>>
 >>>
 >>> numbers = range(1, 16) # Create a list from 1 to 15
->>> list(numbers)    
+>>> list(numbers)
 [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15]
->>> 
+>>>
 >>> [ nn*nn for nn in numbers] # List comprehension
 [1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225]
 ```
-One important feature of the language is that Python is typeless, that is, the variables don't have a _type_:  _int_, or _float_:
+
+One important feature of the language is that Python is typeless, that is, the variables don't have a _type_: _int_, or _float_:
 
 ```Python
 >>> x = 'hello'
@@ -97,8 +98,7 @@ One important feature of the language is that Python is typeless, that is, the v
 >>> x = 42
 ```
 
-The variable `x` can be an _int_ or a _text_. 
-
+The variable `x` can be an _int_ or a _text_.
 
 ### Python on Ubuntu Systems
 
@@ -108,7 +108,7 @@ Using `venv.`
 
 ## Config Parser
 
-A very convinient way to create a configuration file for your application is with the `ConfigParser` module. It can create a file that is similar to  Windows _ini_ file. The configuration file looks like
+A very convinient way to create a configuration file for your application is with the `ConfigParser` module. It can create a file that is similar to Windows _ini_ file. The configuration file looks like
 
 ```
 [ACCESSION]
@@ -171,14 +171,14 @@ It's very common to pass passwords for applications like a database via environm
 Let's create a sample `.env` file, read it, and use the key-value pair on our application. Create a `.env` file on the root of your project
 
 ```
-me@myserver:~/Work/repo2preservica$ cat .env 
+me@myserver:~/Work/repo2preservica$ cat .env
 ## Preservica Username
 PRESERVICA_USERNAME="joe.doe@example.com"
 
 ## Preservica Password
 PRESERVICA_PASSWORD="abc123def456"
 
-me@myserver:~/Work/repo2preservica$ 
+me@myserver:~/Work/repo2preservica$
 ```
 
 If the `.env` file contains only the variables necessary, then it's enough just to call the method
@@ -202,7 +202,6 @@ import os
 
 The method will raise a `KeyError` exception if for any reaseon the variable is not set.
 
-
 ## Executing Commands
 
 To execute a program from your script, maybe it's easier if you assemble the command to be execute, with all its parameters first, then execute the command, and, finally, check the output
@@ -223,7 +222,7 @@ import subprocess
         result.check_returncode()
     (...)
 ```
- 
+
 We create `droid_exec_path` by joining the directory with the executable name, here we are using the function `join` that handles the path separator that is OS dependent, that is, Windows (`\`) and Linux (`/`) have different path separators
 
 ```Python
@@ -249,15 +248,15 @@ droid_exec_path = 'C:\LibraryApps\droid-binary-6.5-bin-win32-with-jre\droid.bat'
 Before executing the command we assemble the full command line, include the parameters, (`-a`, `--recurse`, etc.). Next we [execute the command](https://docs.python.org/3.10/library/subprocess.html#using-the-subprocess-module)
 
 ```Python
-result = subprocess.run(droid_cmd, stdout=subprocess.PIPE, 
+result = subprocess.run(droid_cmd, stdout=subprocess.PIPE,
          stderr=subprocess.STDOUT, text=True)
 ```
 
 Where:
 
-* `stdout=subprocess.PIPE`: we are capturing the output of the command,
-* `stderr=subprocess.STDOUT`: we are redirecting error messages to the standard output device,
-* `text=True`: makes `stdout` available as a string, instead of a [byte sequence](https://docs.python.org/3.10/library/stdtypes.html#binary-sequence-types-bytes-bytearray-memoryview).
+- `stdout=subprocess.PIPE`: we are capturing the output of the command,
+- `stderr=subprocess.STDOUT`: we are redirecting error messages to the standard output device,
+- `text=True`: makes `stdout` available as a string, instead of a [byte sequence](https://docs.python.org/3.10/library/stdtypes.html#binary-sequence-types-bytes-bytearray-memoryview).
 
 To talk about the return of the `subprocess.run`, the `result` above, let's see a simple example
 
@@ -266,7 +265,7 @@ To talk about the return of the `subprocess.run`, the `result` above, let's see 
 # PS C:\Users\garcm0b\Work> cat .\hello_python.py
 # print('hello from a python script')
 
-# First we build the command line, and here, how to set the full path to the 
+# First we build the command line, and here, how to set the full path to the
 # script: home_dir (~) + Work + hello_python.py
 >>> import os
 >>> import subprocess
@@ -277,7 +276,7 @@ To talk about the return of the `subprocess.run`, the `result` above, let's see 
 >>> my_cmd = "python.exe " + ppp
 >>> subprocess.run(my_cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
 CompletedProcess(args='python.exe C:\\Users\\garcm0b\\Work\\hello_python.py', returncode=0, stdout='hello from a python script\n')
->>> 
+>>>
 # Running the command again, and capturing the result.
 >>> result = subprocess.run(my_cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
 >>> print(result.returncode)
@@ -288,13 +287,75 @@ hello from a python script
 
 >>>
 ```
+
 The important part is the `returncode` above: if it's "0," then the command was successful. Any other number means an error occurred. [Windows](https://learn.microsoft.com/en-us/windows/win32/debug/system-error-codes--0-499-) and [Linux](http://www.virtsync.com/c-error-codes-include-errno) have different meaning for the error number.
 
 ## Logging
 
-## Clock
+## Date
+
+Python has objects for [_date_, _time_ and _datetime_](https://docs.python.org/3.10/library/datetime.html#):
+
+```Python
+>>> moon_landing = DT.date(1969, 7, 20)
+>>> moon_landing.isoformat()
+'1969-07-20'
+>>>
+>>> moon_landing.strftime("%a, %d %B %Y")
+'Sun, 20 July 1969'
+>>>
+>>> DT.date.today()
+datetime.date(2023, 1, 1)
+>>>
+```
+
+To create a _time_ object
+
+```Python
+>>> DT.time(14, 30)
+datetime.time(14, 30)
+>>> DT.time(14, 30).isoformat()
+'14:30:00'
+>>>
+```
+
+And finally, a _datetime_ object with different formating
+
+```Python
+>>> import datetime as DT
+>>> DT.datetime.now()
+datetime.datetime(2023, 1, 1, 15, 4, 5, 96075)
+>>> DT.datetime.now().isoformat()
+'2023-01-01T15:04:15.094031'
+>>> DT.datetime.now().strftime("%a, %d %B %Y")
+'Sun, 01 January 2023'
+>>> DT.datetime.now().strftime("%a, %d %B %Y, %H:%M:%S")
+'Sun, 01 January 2023, 15:28:15'
+>>>
+```
+
+Together with the methods `date`, `time`, `datetime`, we also using other methods like `today`, `now`, and, [`strftime`](https://docs.python.org/3.10/library/datetime.html#strftime-and-strptime-behavior) to format the presentation of the objects. Also note that [ISO format](https://www.iso.org/iso-8601-date-and-time-format.html) is a standard way to present date and time information.
+
+> Date and time objects can be [_aware_ or _naive_](https://docs.python.org/3.10/library/datetime.html#aware-and-naive-objects) regarding timezone information. An _aware_ object can have information of timezone and _day light saving_, and, as such, it's not open to interpretations.
+
+One intesting use of date manipulation is creation of custome file names, for example, with the date that you run a anti-virus check:
+
+```Python
+>>> import datetime as DT
+>>> av_run_date = DT.datetime.today().strftime("%Y%m%d")
+>>> print(av_run_date)
+20230101
+>>>
+>>> av_log_file = f"av_scan_{av_run_date}.txt"
+>>> print(av_log_file)
+av_scan_20230101.txt
+>>>
+```
+
+Next we work with date intervals.
+
+> If your application does a lot of dates and timezone manipulations, or durations calculations, maybe you should consider the library _pendulum_: [https://pendulum.eustace.io/](https://pendulum.eustace.io/), which seems to be much more friendlier that the Python native classes.
 
 ## Jinja2
 
 ## Type Hinting
-
