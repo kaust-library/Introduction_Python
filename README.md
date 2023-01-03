@@ -338,7 +338,7 @@ Together with the methods `date`, `time`, `datetime`, we also using other method
 
 > Date and time objects can be [_aware_ or _naive_](https://docs.python.org/3.10/library/datetime.html#aware-and-naive-objects) regarding timezone information. An _aware_ object can have information of timezone and _day light saving_, and, as such, it's not open to interpretations.
 
-One intesting use of date manipulation is creation of custome file names, for example, with the date that you run a anti-virus check:
+OnNe intesting use of date manipulation is creation of custome file names, for example, with the date that you run a anti-virus check:
 
 ```Python
 >>> import datetime as DT
@@ -352,7 +352,30 @@ av_scan_20230101.txt
 >>>
 ```
 
-Next we work with date intervals.
+Another very common use o dates is to calculate the difference between two dates. For example if a product is expired or not. Consider the following example:
+
+```Python
+>>> import datetime as DT
+>>> made_dt = DT.date.fromisoformat('2022-12-22')
+>>> today = DT.date.today()
+>>> good_day = (expire_dt - today).days
+>>>
+>>> if good_day > 0:
+...     print(f"Still valid for '{good_day}' {good_day == 1 and 'day' or 'days'}")
+...
+Still valid for '22' days
+>>>
+```
+
+We can even use _weeks_ for some calculations
+
+```Python
+>>> nn_weeks = 3
+>>> in_future = today + DT.timedelta(weeks=nn_weeks)
+>>> in_future.strftime("%a, %d %B %Y, %H:%M:%S")
+'Tue, 24 January 2023, 00:00:00'
+>>>
+```
 
 > If your application does a lot of dates and timezone manipulations, or durations calculations, maybe you should consider the library _pendulum_: [https://pendulum.eustace.io/](https://pendulum.eustace.io/), which seems to be much more friendlier that the Python native classes.
 
