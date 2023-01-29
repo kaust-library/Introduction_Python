@@ -1,0 +1,8 @@
+/**
+* Simple Icinga host configuration file
+*/
+
+object Host "{{ hostname }}" {
+    check_command = "hostalive"
+    address = "{{ ip_addr }}"
+}
