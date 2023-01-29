@@ -381,4 +381,25 @@ We can even use _weeks_ for some calculations
 
 ## Jinja2
 
+Python has a very good templating system called [_Jinja_](https://palletsprojects.com/p/jinja/).
+
+To install use the usual `pip` command inside a virtual environment
+
+```
+(venv) PS C:\Users\garcm0b\Work\Introduction_Python> pip install -U jinja2
+```
+
+As first example, consider the following example
+
+```Python
+>>> import jinja2 as J2
+>>> environment = J2.Environment()
+>>> template = environment.from_string("Hi {{ name }}, how are you?")
+>>> template.render(name="Joe")
+'Hi Joe, how are you?'
+>>>
+```
+
+A simple example of Jinja would be convert a table in a text file into a configuration file. Sometimes you receive a list with hostnames and IP addresses, and need to create a series of configuration files.
+
 ## Type Hinting
