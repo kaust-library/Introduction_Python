@@ -1,3 +1,7 @@
+# For this project
+
+examples/templates/out
+
 # Byte-compiled / optimized / DLL files
 __pycache__/
 *.py[cod]
