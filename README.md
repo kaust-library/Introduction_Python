@@ -400,6 +400,51 @@ As first example, consider the following example
 >>>
 ```
 
-A simple example of Jinja would be convert a table in a text file into a configuration file. Sometimes you receive a list with hostnames and IP addresses, and need to create a series of configuration files.
+A simple example of Jinja would be convert a table in a text file into a configuration file. Sometimes you receive a list with hostnames and IP addresses, and need to create a series of configuration files. Consider the example in the `templates` folder. There are three folder: `in`, `out` and `temps.` On the folder `in`, there is an input file with three machines:
 
-## Type Hinting
+```
+(venv) PS C:\Users\garcm0b\Work\Introduction_Python\examples\templates\in> cat .\hosts.txt
+atta, 192.168.56.10
+flik, 192.168.56.11
+hopper, 192.168.56.12
+```
+
+And we want to generate three configuration files for [Icinga](https://icinga.com/) monitoring system in the output directory `out.` The "recipe" is the _template_ in the `temps` folder:
+
+```
+(venv) PS C:\Users\garcm0b\Work\Introduction_Python\examples\templates\temps> cat .\hostconfig.j2
+/**
+* Simple Icinga host configuration file
+*/
+
+object Host "{{ hostname }}" {
+    check_command = "hostalive"
+    address = "{{ ip_addr }}"
+}
+(venv) PS C:\Users\garcm0b\Work\Introduction_Python\examples\templates\temps>
+```
+
+Finally a Python script to tie everything
+
+```Python
+(venv) PS C:\Users\garcm0b\Work\Introduction_Python\examples\templates> cat .\hostsconfig.py
+(...)
+#
+# Import the module
+import jinja2 as J2
+
+
+def main():
+    #
+    # The 'Environment' object stores all configuration
+    environment = J2.Environment(loader=J2.FileSystemLoader("temps/"))
+    template = environment.get_template("hostconfig.j2")
+
+(...)
+        content = template.render(hostname=hostname, ip_addr=ip_addr)
+
+if __name__ == "__main__":
+
+    main()
+(venv) PS C:\Users\garcm0b\Work\Introduction_Python\examples\templates>
+```
