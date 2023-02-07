@@ -15,9 +15,13 @@ Type "help", "copyright", "credits" or "license" for more information.
 
 On Microsoft Windows, there is an installer provided by [Python itself](https://www.python.org/downloads/), but, probably, the easiest way is to install via the Microsoft Store.
 
+### Python on Ubuntu Systems
+
+On Ubuntu system it's necessary to install `python3-venv` package. And if you are not going to install old Python2, than, it's a good idea to install the package `python-is-python3,` just so that the `python` command invokes `python3` instead of an error message.
+
 ## The Zen of Python
 
-A quick guide for _pythonic_ scripts
+A quick guide for _pythonic_ scripts:
 
 ```
 >>> import this
@@ -58,7 +62,7 @@ sys.float_info(max=1.7976931348623157e+308, max_exp=1024, max_10_exp=308, min=2.
 >>>
 ```
 
-A quick reminder of Python. First numbers, than strings
+A quick reminder of Python, number representation, some string manipulation, some control flow, etc:
 
 ```Python
 >>> c = 300_000_000_00 # speed of light in vacum in SI units (m/s).
@@ -90,6 +94,8 @@ not more than 10
 [1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225]
 ```
 
+> The [`range` function](https://docs.python.org/3/tutorial/controlflow.html#the-range-function) behaves like a list, but it isn't. It's an object the next item (an [iterable](https://docs.python.org/3/glossary.html#term-iterable)),but without creating the actual list, thus saving memory.
+
 One important feature of the language is that Python is typeless, that is, the variables don't have a _type_: _int_, or _float_:
 
 ```Python
@@ -99,12 +105,6 @@ One important feature of the language is that Python is typeless, that is, the v
 ```
 
 The variable `x` can be an _int_ or a _text_.
-
-### Python on Ubuntu Systems
-
-On Ubuntu system it's necessary to install `python3-venv` package. And if you are not going to install old Python2, than, it's a good idea to install the package `python-is-python3,` just so that the `python` command invokes `python3` instead of an error message.
-
-Using `venv.`
 
 ## Config Parser
 
