@@ -424,7 +424,7 @@ object Host "{{ hostname }}" {
 (venv) PS C:\Users\garcm0b\Work\Introduction_Python\examples\templates\temps>
 ```
 
-Finally a Python script to tie everything
+Finally a Python script to tie everything together
 
 ```Python
 (venv) PS C:\Users\garcm0b\Work\Introduction_Python\examples\templates> cat .\hostsconfig.py
@@ -433,11 +433,11 @@ Finally a Python script to tie everything
 # Import the module
 import jinja2 as J2
 
-
 def main():
     #
-    # The 'Environment' object stores all configuration
+    # The 'Environment' is the core object stores all configuration.
     environment = J2.Environment(loader=J2.FileSystemLoader("temps/"))
+    # Load the template by name.
     template = environment.get_template("hostconfig.j2")
 
 (...)
