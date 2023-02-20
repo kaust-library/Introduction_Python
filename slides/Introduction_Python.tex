@@ -363,11 +363,143 @@ Python has objects for date, time, and datetime
 'Sun, 20 July 1969'
 >>> DT.date.today().strftime("%a, %d %B %Y")
 'Mon, 20 February 2023'
->>> DT.datetime.now().strftime("%H:%M:%S %Z")
-'14:28:36 '
+>>> DT.datetime.now().strftime("%H:%M:%S")
+'15:55:33'
+>>> dead_line = DT.datetime(2023, 4, 21, 17, 00)
+>>> dead_line.strftime("%a, %H:%M, %d %B %Y")
+'Fri, 17:00, 21 April 2023'
+>>>
+
+\end{verbatim}
+
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Manipulating Dates}
+
+\scriptsize
+\begin{verbatim}
+>>> expire_date = DT.date.fromisoformat('2023-04-24')
+>>> today = DT.date.today()
+>>> good_days = (expire_date - today).days
+>>> if good_days > 0:
+...     print(f"It's valid for '{good_days}' {good_days == 1 and 'day' or 'days'}")
+...
+It's valid for '63' days                                                                                                       >>>
+>>> in_3weeks = today + DT.timedelta(weeks=3)
+>>> in_3weeks.strftime("%a, %d %B %Y")
+'Mon, 13 March 2023'
+>>> today.strftime("%a, %d %B %Y")
+'Mon, 20 February 2023'
+>>>
+>>> av_run_date = DT.datetime.today().strftime("%Y%m%d")
+>>> av_log_file = f"av_scan_{av_run_date}.txt"
+>>> print(av_log_file)
+av_scan_20230220.txt
 >>>
 \end{verbatim}
-The \texttt{\%Z} above refers to the time zone information. In this case, the information is missing. 
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Templates with Jinja2}
+\begin{itemize}
+    \item Jinja2 is a very powerful template system available in Python. 
+    \item What is a template system?
+\end{itemize}
+
+\scriptsize
+\begin{verbatim}
+>>> import jinja2 as J2
+>>> environment = J2.Environment()
+>>> template = environment.from_string("Hi {{ name }}, how are you?")
+>>> template.render(name="Joe")
+'Hi Joe, how are you?'
+>>>    
+\end{verbatim}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{How does Jinja2 work}
+\begin{itemize}
+    \item A list of values as input source.
+    \tiny
+    \begin{verbatim}
+(venv) PS C:\Users\garcm0b\Work\Introduction_Python\examples\templates\in> cat .\hosts.txt
+atta, 192.168.56.10
+flik, 192.168.56.11
+hopper, 192.168.56.12        
+    \end{verbatim}
+    \normalsize
+    \item A template of the output, like a text, or a configuration file.
+    \tiny
+    \begin{verbatim}
+(venv) PS C:\Users\garcm0b\Work\Introduction_Python\examples\templates\temps> cat .\hostconfig.j2
+/**
+* Simple Icinga host configuration file
+*/
+
+object Host "{{ hostname }}" {
+    check_command = "hostalive"
+    address = "{{ ip_addr }}"
+}
+(venv) PS C:\Users\garcm0b\Work\Introduction_Python\examples\templates\temps>
+    \end{verbatim}
+    \normalsize
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{How does Jinja2 work (cont.)}
+\begin{itemize}
+    \item A Python script
+    \tiny
+    \begin{verbatim}
+(venv) PS C:\Users\garcm0b\Work\Introduction_Python\examples\templates> cat .\hostsconfig.py
+import jinja2 as J2
+
+def main():
+    environment = J2.Environment(loader=J2.FileSystemLoader("temps/"))
+    template = environment.get_template("hostconfig.j2")
+    with open("in/hosts.txt", "r") as fin:
+        text = fin.readlines()
+    hosts = [line.strip().split(",") for line in text]
+    for host in hosts:
+        hostname,ip_addr = host[0], host[1]
+        content = template.render(hostname=hostname, ip_addr=ip_addr)
+        with open(f"out/{hostname}.cfg", "w") as fout:
+            fout.write(content)
+if __name__ == "__main__":
+    main()
+(venv) PS C:\Users\garcm0b\Work\Introduction_Python\examples\templates>        
+    \end{verbatim}
+    \normalsize
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{How does Jinja2 work (cont.)}
+\begin{itemize}
+    \item Run the script
+    \tiny
+    \begin{verbatim}
+(venv) PS C:\Users\garcm0b\Work\Introduction_Python\examples\templates> python .\hostsconfig.py        
+    \end{verbatim}
+    \normalsize
+    \item Check the output
+    \tiny
+    \begin{verbatim}
+(venv) PS C:\Users\garcm0b\Work\Introduction_Python\examples\templates\out> cat .\atta.cfg
+/**
+* Simple Icinga host configuration file
+*/
+
+object Host "atta" {
+    check_command = "hostalive"
+    address = " 192.168.56.10"
+}
+    \end{verbatim}
+\end{itemize}
+    
 \end{frame}
 %
 % The End.
