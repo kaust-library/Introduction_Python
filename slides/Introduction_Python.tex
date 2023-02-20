@@ -6,7 +6,6 @@
 
 \usetheme {default}
 
-
 \setbeamertemplate{itemize items}[square]
 \setbeamertemplate{navigation symbols}{}
 
@@ -20,6 +19,34 @@
 \begin{document}
 
 \frame{\titlepage}
+
+\begin{frame}
+\frametitle{Why a Cookbook}
+\begin{itemize}
+    \item There are good introductory courses to Python available on the Internet, like the ``Software Carpentry Foundation,'' but...
+    \item it can be difficult to find practical information: ``Now what??''
+    \item Also to share what I learned with developing code for the library.
+\end{itemize}
+    
+\end{frame}
+
+\begin{frame}
+\frametitle{The Plan}
+The presentation is organized as follows:
+\begin{itemize}
+    \item Origins of Python.
+    \item Installing Python.
+    \item The ``Zen of Python'', your guide to \emph{pythonic} code.
+    \item A brief review of the basic elements of Python.
+    \item Reading configuration files.
+    \item Passing environment variables (like passwords) to Python scripts.
+    \item Path separator in Windows and Linux (and MacOS)\footnote{In this text ``MacOS'' will be treated like Linux.}
+    \item How execute other commands inside your script.
+    \item Working with dates.
+    \item Using templates.
+\end{itemize}
+    
+\end{frame}
 
 \begin{frame}
 \frametitle{Origins}
@@ -46,10 +73,9 @@
 
 
 \begin{frame}[fragile]
-    \frametitle{The Zen of Python}
-Writing \textit{pythonic} scripts
+\frametitle{The Zen of Python}
+% Writing \textit{pythonic} scripts
 \scriptsize
-% \tiny
 \begin{verbatim}
 >>> import this
 The Zen of Python, by Tim Peters
@@ -79,13 +105,13 @@ Namespaces are one honking great idea -- let's do more of those!
 \end{frame}
 
 \begin{frame}[fragile]
-    \frametitle{Basic Elements}
+\frametitle{Basic Elements}
 Python has all the expected elements of a modern programming language: numbers, strings, functions, objects, etc.
 \scriptsize
 
     % \small
 \begin{verbatim}
->>> c = 300_000_000_00 # speed of light in vacum in SI units (m/s).
+>>> c = 300_000_000_000 # speed of light in vacum in SI units (m/s).
 >>> ff = 5.678 # float number
 >>> zz = 3 + 4j # complex number
 >>> hello = "hello world!"
@@ -102,7 +128,7 @@ Python has all the expected elements of a modern programming language: numbers, 
 not more than 10
 >>>
 \end{verbatim}
-    \normalsize
+\normalsize
 \end{frame}
 
 \begin{frame}[fragile]
@@ -212,7 +238,137 @@ from dotenv import load_dotenv
 \normalsize
 \end{frame}
 
+\begin{frame}[fragile]
+\frametitle{Path Separator}
 
+Python provides libraries to use the correct path separator: \texttt{os.path.join} and \texttt{pathlib.join}. Example of how Linux and Windows handle path: see the \verb|droid_exec_path|
+
+\scriptsize
+\begin{verbatim}
+#
+# Linux
+>>> import os
+>>> droid_dir = "/opt/LibraryApps/droid-binary-6.5-bin-with-jre"
+>>> droid_bin = "droid.sh"
+>>> droid_exec_path = os.path.join(droid_dir, droid_bin)
+>>> print(f"droid_exec_path = '{droid_exec_path}'")
+droid_exec_path = '/opt/LibraryApps/droid-binary-6.5-bin-with-jre/droid.sh'
+#
+# Windows
+>>> import os
+>>> droid_dir = "C:\LibraryApps\droid-binary-6.5-bin-win32-with-jre"
+>>> droid_bin = "droid.bat"
+>>> droid_exec_path = os.path.join(droid_dir, droid_bin)
+>>> print(f"droid_exec_path = '{droid_exec_path}'")
+droid_exec_path = 'C:\LibraryApps\droid-binary-6.5-bin-win32-with-jre\droid.bat'
+>>>
+\end{verbatim}
+\normalsize
+\end{frame}
+
+
+
+\begin{frame}[fragile]
+\frametitle{Executing Commands}
+
+Executing a program or a script inside your script using the \texttt{subprocess} module
+
+\scriptsize
+\begin{verbatim}
+import subprocess
+(...)
+    # 1. Prepare the parameters for the command
+    droid_exec_path = os.path.join(droid_config['droid_dir'], droid_config['droid_bin'])
+    droid_bag_path = os.path.join(bag_path, "data")
+
+    # 2. Assemble the command line to be executed
+    droid_cmd = f"{droid_exec_path} -a {droid_bag_path} --recurse -p {acc_number}.droid"
+    (...)
+
+        # 3. Execute the program.
+        result = subprocess.run(droid_cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, 
+            text=True)
+        result.check_returncode()
+    (...)
+\end{verbatim}
+\normalsize
+\end{frame}
+
+\begin{frame}[fragile]
+\frametitle{Explaining}
+
+Explaining the parameters in the \texttt{subprocess.run}
+
+\begin{itemize}
+    \item ``\verb|stdout=subprocess.PIPE|'' means to capture the output of the command.
+    \item ``\verb|stderr=subprocess.STDOUT|'' redirects the output of \texttt{stderr} to \texttt{stdout}. These are the standard error and standard output devices. They are created automatically by the operating system. 
+    \item ``\verb|text=True|'' convert the output to string (text) instead of a byte sequence.
+\end{itemize}
+
+You will need these parameters to capture the output of your program as a text so you can save to file.
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{A Complete Example}
+Let's present a ``complete'' example of running a script with \texttt{subprocess.run}
+
+\tiny
+\begin{verbatim}
+
+# A very simple script:
+# PS C:\Users\garcm0b\Work> cat .\hello_python.py
+# print('hello from a python script')
+
+# First we build the command line, and here, how to set the full path to the
+# script: home_dir (~) + Work + hello_python.py
+>>> import os
+>>> import subprocess
+>>> ppp = os.path.join(os.path.expanduser('~'), 'Work', 'hello_python.py')
+>>> ppp
+'C:\\Users\\garcm0b\\Work\\hello_python.py'
+>>>
+>>> my_cmd = "python.exe " + ppp
+>>> subprocess.run(my_cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+CompletedProcess(args='python.exe C:\\Users\\garcm0b\\Work\\hello_python.py', returncode=0, stdout='hello from a python script\n')
+>>>
+# Running the command again, and capturing the result.
+>>> result = subprocess.run(my_cmd, stdout=subprocess.PIPE, stderr=subprocess.STDOUT, text=True)
+>>> print(result.returncode)
+0
+>>>
+>>> print(result.stdout)
+hello from a python script
+
+>>>
+\end{verbatim}
+\normalsize
+
+\end{frame}
+
+
+\begin{frame}[fragile]
+\frametitle{Working with Dates}
+
+Python has objects for date, time, and datetime
+
+\scriptsize
+\begin{verbatim}
+>>> import datetime as DT
+>>> moon_landing = DT.date(1969, 7, 20)
+>>> moon_landing.isoformat()
+'1969-07-20'
+>>> moon_landing.strftime("%a, %d %B %Y")
+'Sun, 20 July 1969'
+>>> DT.date.today().strftime("%a, %d %B %Y")
+'Mon, 20 February 2023'
+>>> DT.datetime.now().strftime("%H:%M:%S %Z")
+'14:28:36 '
+>>>
+\end{verbatim}
+The \texttt{\%Z} above refers to the time zone information. In this case, the information is missing. 
+\end{frame}
 %
 % The End.
 %
