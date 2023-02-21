@@ -65,7 +65,7 @@ sys.float_info(max=1.7976931348623157e+308, max_exp=1024, max_10_exp=308, min=2.
 A quick reminder of Python, number representation, some string manipulation, some control flow, etc:
 
 ```Python
->>> c = 300_000_000_00 # speed of light in vacum in SI units (m/s).
+>>> c = 300_000_000_000 # speed of light in vacum in SI units (m/s).
 >>> ff = 5.678 # float number
 >>> zz = 3 + 4j # complex number
 >>> hello = "hello world!"
@@ -94,7 +94,7 @@ not more than 10
 [1, 4, 9, 16, 25, 36, 49, 64, 81, 100, 121, 144, 169, 196, 225]
 ```
 
-> The [`range` function](https://docs.python.org/3/tutorial/controlflow.html#the-range-function) behaves like a list, but it isn't. It's an object the next item (an [iterable](https://docs.python.org/3/glossary.html#term-iterable)),but without creating the actual list, thus saving memory.
+> The [`range` function](https://docs.python.org/3/tutorial/controlflow.html#the-range-function) behaves like a list, but it isn't. It's an object which returns the next item (an [iterable](https://docs.python.org/3/glossary.html#term-iterable)),but without creating the actual list, thus saving memory.
 
 One important feature of the language is that Python is typeless, that is, the variables don't have a _type_: _int_, or _float_:
 
