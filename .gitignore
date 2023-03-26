@@ -2,6 +2,7 @@
 
 examples/templates/out
 examples/templates/*.cfg
+examples/exceptions/metadata.json
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
