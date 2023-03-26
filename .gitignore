@@ -1,6 +1,7 @@
 # For this project
 
 examples/templates/out
+examples/templates/*.cfg
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
