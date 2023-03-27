@@ -3,6 +3,7 @@
 examples/templates/out
 examples/templates/*.cfg
 examples/exceptions/metadata.json
+examples/read_config/out/hello.txt
 
 # Byte-compiled / optimized / DLL files
 __pycache__/
