@@ -168,6 +168,12 @@ dest_dir = C:\Users\joe\Work\${ACCESSION:accession_id}
 
 It's very common to pass passwords for applications like a database via environment variables. For example when using a CI/CD pipeline in Gitlab or GitHub, one set a series of environment variables to the pipeline. But during development, it's necessary to have a similar way to pass passwords (or any other key-value pair) to the application, and that is the reason to use _dotenv_. Dotenv reads a `.env` file, and export the content to shell environment.
 
+First install `dotenv` package
+
+```python
+pip install python-dotenv
+```
+
 Let's create a sample `.env` file, read it, and use the key-value pair on our application. Create a `.env` file on the root of your project
 
 ```
